@@ -1,0 +1,66 @@
+* {
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+}
+
+body {
+  background: #6B7A8F;
+}
+
+.app {
+  width: 350px;
+  height: 250px;
+  background-color: #fff;
+  margin: 50px auto 0 auto;
+  padding: 40px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px rgba(0,0,0, .2);
+}
+
+.counter {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px rgba(0,0,0, .2);
+  background-color: #e6e6e6;
+  text-align: center;
+  line-height: 100px;
+  font-size: 34px;
+  margin: 0 auto;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.button {
+  border: none;
+  border-radius: 5px;
+  padding: 7px 12px;
+  cursor: pointer;
+  background-color: #4141d5;
+  color: white;
+  margin-left: 5px;
+}
+
+.disabled {
+  background-color: #4c9cee;
+}
+
+.button:hover {
+  background-color: #272779;
+}
+
+.button:active {
+  background-color: #4141d5;
+}
+
+.error {
+  font-size: 40px;
+  color: red;
+  font-weight: 700;
+}
