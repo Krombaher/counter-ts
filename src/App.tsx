@@ -5,7 +5,7 @@ import {Counter} from "./components/counter/Counter";
 import {MainButton} from "./components/button/MainButton";
 
 function App() {
-    const maxValue = 5
+    const maxValue = 6
     const starValue = 0
     const step = 1
 
