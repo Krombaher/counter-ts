@@ -1,21 +1,19 @@
 import React, {useState} from 'react';
 import './App.module.css';
 import s from './App.module.css'
+import {Counter} from "./components/counter/Counter";
+import {MainButton} from "./components/button/MainButton";
 
 function App() {
-    const [count, setCount] = useState(0)
+    const maxValue = 5
+    const starValue = 0
+    const step = 1
 
-    const onStyle = (count: number) => {
-        if (count === 5) {
-            return s.counter + ' ' + s.error
-        } else {
-            return s.counter
-        }
-    }
+    const [count, setCount] = useState<number>(starValue)
 
     const onNextCounter = () => {
-        if (count < 5) {
-            setCount(count + 1)
+        if (count < maxValue && count >= starValue) {
+            setCount(count + step)
         }
     }
 
@@ -23,16 +21,13 @@ function App() {
         setCount(0)
     }
 
-    const incDisabled = count === 5
-    const resetDisabled = count < 1
-
     return (
         <div className="App">
             <div className={s.app}>
-                <div className={onStyle(count)}>{count}</div>
+               <Counter count={count}/>
                 <div className={s.controls}>
-                    <button disabled={incDisabled} className={s.button} onClick={onNextCounter}>INC</button>
-                    <button disabled={resetDisabled} className={s.button} onClick={onResetCounter}>RESET</button>
+                    <MainButton disabled={count === maxValue} classname={s.button} name={'INC'} callback={onNextCounter}/>
+                    <MainButton disabled={count < 1} name={'RESET'} callback={onResetCounter}/>
                 </div>
             </div>
         </div>
