@@ -24,7 +24,7 @@ function App() {
     return (
         <div className="App">
             <div className={s.app}>
-               <Counter count={count}/>
+               <Counter count={count} maxValue={maxValue}/>
                 <div className={s.controls}>
                     <MainButton disabled={count === maxValue} name={'INC'} callback={onNextCounter}/>
                     <MainButton disabled={count < 1} name={'RESET'} callback={onResetCounter}/>
