@@ -1,0 +1,24 @@
+.input {
+    width: 150px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgba(0,0,0, .2);
+    border: 1px solid gray;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.inputError {
+    width: 150px;
+    height: 30px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgba(0,0,0, .2);
+    border: none;
+    color: black;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    background: #fa3e3e;
+}
