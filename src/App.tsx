@@ -23,16 +23,19 @@ function App() {
     const [error, setError] = useState('')
 
     useEffect( () => {
-        let valueAsString =  localStorage.getItem('counterValue')
-        if (valueAsString) {
-            let newValue = JSON.parse(valueAsString)
-            setCount(newValue)
+        let settingsToString =  localStorage.getItem('settings')
+
+        if (settingsToString) {
+            let newSettings = JSON.parse(settingsToString)
+            console.log(newSettings)
+            setSettings(newSettings)
+            setCount(newSettings.start)
         }
     }, [])
 
     useEffect( () => {
-        localStorage.setItem('counterValue', JSON.stringify(count))
-    }, [count])
+        localStorage.setItem('settings', JSON.stringify(settings))
+    }, [settings])
 
     const onNextCounter = () => {
         if (count < settings.max && count >= settings.start) {
@@ -51,7 +54,7 @@ function App() {
         <div className="App">
             <div className={s.app}>
                 <Settings
-                    defaultValue={defaultValue}
+                    defaultValue={settings}
                     error={error}
                     setError={setError}
                     settings={settings}

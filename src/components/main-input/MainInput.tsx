@@ -17,6 +17,6 @@ export const MainInput = (props:MainInputPropsType) => {
     const inputClass = (props.error) ? s.inputError : s.input
 
     return (
-        <input type={'number'} className={inputClass} onChange={onChangeHandler}/>
+        <input type={'number'} value={props.value} className={inputClass} onChange={onChangeHandler}/>
     )
 }

@@ -1,12 +1,16 @@
-.counter {
+.counterDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 180px;
     height: 100px;
     border-radius: 5px;
     box-shadow: 5px 5px 10px rgba(0,0,0, .2);
     background-color: #e6e6e6;
-    text-align: center;
-    line-height: 100px;
-    font-size: 34px;
+}
+
+.counter {
+    font-size: 30px;
 }
 
 .errorCounter {
@@ -15,8 +19,8 @@
     font-weight: 700;
 }
 
-.span {
+.errorText {
     font-size: 18px;
     color: red;
-    font-weight: 500;
+    font-weight: 700;
 }

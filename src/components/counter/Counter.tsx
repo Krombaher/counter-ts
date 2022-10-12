@@ -11,8 +11,14 @@ export const Counter:React.FC<CounterPropsType> = ({count, maxValue, error}) => 
 
     const counterStyle = s.counter + ' ' + (count === maxValue ? s.errorCounter : '')
   return (
-      <>
-          <div className={counterStyle}>{error !== '' ? <span className={s.span}>{error}</span> : count}</div>
-      </>
+          <div className={s.counterDisplay}>
+              {error !== '' ?
+              <div className={s.errorText}>
+                  {error}
+              </div>
+              : <div className={counterStyle}>
+                      {count}
+              </div>}
+          </div>
   )
 }

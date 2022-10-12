@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import s from "../App.module.css";
 import {MainInput} from "./main-input/MainInput";
 import {MainButton} from "./main-button/MainButton";
@@ -15,6 +15,19 @@ type PropsTypeSettings = {
 export const Settings = (props: PropsTypeSettings) => {
     const [defaultValue, setDefaultValue] = useState(props.defaultValue)
 
+    useEffect(() => {
+        setDefaultValue(props.defaultValue)
+    }, [props.defaultValue])
+
+    useEffect(() => {
+        if (defaultValue.start >= defaultValue.max || defaultValue.step < 1 ||
+            defaultValue.step > (defaultValue.max - defaultValue.start)) {
+            props.setError('Incorrect value!')
+        } else {
+            props.setError('')
+        }
+    }, [defaultValue, props.error, props])
+
     const onStartInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setDefaultValue({...defaultValue, start: Number(e.currentTarget.value)})
     }
@@ -28,13 +41,7 @@ export const Settings = (props: PropsTypeSettings) => {
     }
 
     const onSaveSettingsHandler = () => {
-        if (defaultValue.start >= defaultValue.max || defaultValue.step < 1 ||
-            defaultValue.step > (defaultValue.max - defaultValue.start)) {
-            props.setError('Incorrect value!')
-        } else {
-            props.addSettings(defaultValue)
-            props.setError('')
-        }
+        props.addSettings(defaultValue)
     }
 
     return (
@@ -67,6 +74,8 @@ export const Settings = (props: PropsTypeSettings) => {
                 </div>
             </div>
             <MainButton
+                className={s.settingsBtn}
+                disabled={props.error !== ''}
                 name={'SAVE'}
                 callback={onSaveSettingsHandler}
             />
