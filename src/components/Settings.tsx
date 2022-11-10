@@ -1,47 +1,50 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 import s from "../App.module.css";
 import {MainInput} from "./main-input/MainInput";
-import {MainButton} from "./main-button/MainButton";
-import {ValueType} from "../App";
+import {Button} from "@mantine/core";
+import {SettingsValueType} from "./redux/CounterReducer";
 
-type PropsTypeSettings = {
-    defaultValue: ValueType
-    settings: ValueType
-    addSettings: (defaultValue: ValueType) => void
-    setError: (text: string) => void
-    error?: string
+type SettingsPropsType = {
+    max: number
+    start: number
+    step: number
+    error?:string
+    setError:(text:string) => void
+    addSetSettings: (settings: SettingsValueType) => void
 }
 
-export const Settings = (props: PropsTypeSettings) => {
-    const [defaultValue, setDefaultValue] = useState(props.defaultValue)
+export const Settings = (props: SettingsPropsType) => {
+    const [settings, setSettings] = useState<SettingsValueType>({
+        max: props.max,
+        start: props.start,
+        step: props.step,
+    })
 
     useEffect(() => {
-        setDefaultValue(props.defaultValue)
-    }, [props.defaultValue])
-
-    useEffect(() => {
-        if (defaultValue.start >= defaultValue.max || defaultValue.step < 1 ||
-            defaultValue.step > (defaultValue.max - defaultValue.start)) {
+        if (settings.start >= settings.max
+            || settings.step < 1
+            || settings.step > (settings.max - settings.start)
+            || (settings.max - settings.start) % settings.step !== 0) {
             props.setError('Incorrect value!')
         } else {
             props.setError('')
         }
-    }, [defaultValue, props.error, props])
+    }, [settings, props.error, props])
 
     const onStartInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setDefaultValue({...defaultValue, start: Number(e.currentTarget.value)})
+        setSettings({...settings, start: Number(e.currentTarget.value)})
     }
 
     const onMaxInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setDefaultValue({...defaultValue, max: Number(e.currentTarget.value)})
+        setSettings({...settings, max: Number(e.currentTarget.value)})
     }
 
     const onStepInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setDefaultValue({...defaultValue, step: Number(e.currentTarget.value)})
+        setSettings({...settings, step: Number(e.currentTarget.value)})
     }
 
     const onSaveSettingsHandler = () => {
-        props.addSettings(defaultValue)
+        props.addSetSettings(settings)
     }
 
     return (
@@ -52,7 +55,7 @@ export const Settings = (props: PropsTypeSettings) => {
                     <label>Enter start value:</label>
                     <MainInput
                         error={props.error}
-                        value={defaultValue.start}
+                        value={settings.start}
                         callback={onStartInputHandler}
                     />
                 </div>
@@ -60,7 +63,7 @@ export const Settings = (props: PropsTypeSettings) => {
                     <label>Enter max value:</label>
                     <MainInput
                         error={props.error}
-                        value={defaultValue.max}
+                        value={settings.max}
                         callback={onMaxInputHandler}
                     />
                 </div>
@@ -68,17 +71,20 @@ export const Settings = (props: PropsTypeSettings) => {
                     <label>Enter step value:</label>
                     <MainInput
                         error={props.error}
-                        value={defaultValue.step}
+                        value={settings.step}
                         callback={onStepInputHandler}
                     />
                 </div>
             </div>
-            <MainButton
-                className={s.settingsBtn}
+            <Button
+                style={{marginTop: '20px', marginBottom: '20px'}}
+                radius="lg"
+                uppercase
+                onClick={onSaveSettingsHandler}
                 disabled={props.error !== ''}
-                name={'SAVE'}
-                callback={onSaveSettingsHandler}
-            />
+            >
+                Save
+            </Button>
         </div>
     )
 }
