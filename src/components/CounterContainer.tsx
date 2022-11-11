@@ -6,10 +6,7 @@ import {Counter} from "./Counter";
 
 let mapStateToProps = (state: AppStateType) => {
     return {
-        max: state.counter.max,
-        start: state.counter.start,
-        step: state.counter.step,
-        count: state.counter.count
+        counter: state.counter
     }
 }
 

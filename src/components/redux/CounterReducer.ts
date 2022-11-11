@@ -1,17 +1,8 @@
 type ActionType = NextCountAT | ResetCountAT | AddSettingsAT
 
-type NextCountAT = {
-    type: 'NEXT_COUNTER'
-}
-
-type ResetCountAT = {
-    type: 'RESET_COUNT'
-}
-
-type AddSettingsAT = {
-    type: 'ADD_SETTINGS'
-    settings: SettingsValueType
-}
+type NextCountAT = ReturnType<typeof NextCountAC>
+type ResetCountAT = ReturnType<typeof ResetCountAC>
+type AddSettingsAT = ReturnType<typeof AddSettingsAC>
 
 export type StateValueType = {
     max: number
@@ -26,10 +17,6 @@ export type SettingsValueType = {
     step: number
 }
 
-const NEXT_COUNTER = 'NEXT_COUNTER'
-const RESET_COUNT = 'RESET_COUNT'
-const ADD_SETTINGS = 'ADD_SETTINGS'
-
 let initialState = {
     max: 5,
     start: 0,
@@ -39,17 +26,17 @@ let initialState = {
 
 export const counterReducer = (state: StateValueType = initialState, action: ActionType): StateValueType => {
     switch (action.type) {
-        case NEXT_COUNTER:
+        case 'NEXT_COUNTER':
             if (state.count < state.max && state.count >= state.start) {
                 return {...state, count: state.count + state.step}
             } else {
                 return state
             }
 
-        case RESET_COUNT:
+        case 'RESET_COUNT':
             return {...state, count: state.start}
 
-        case ADD_SETTINGS:
+        case 'ADD_SETTINGS':
             return {
                 ...state,
                 start: action.settings.start,
@@ -63,14 +50,14 @@ export const counterReducer = (state: StateValueType = initialState, action: Act
     }
 }
 
-export const NextCountAC = (): NextCountAT => {
-    return {type: NEXT_COUNTER}
+export const NextCountAC = () => {
+    return {type: 'NEXT_COUNTER'} as const
 }
 
-export const ResetCountAC = (): ResetCountAT => {
-    return {type: RESET_COUNT}
+export const ResetCountAC = () => {
+    return {type: 'RESET_COUNT'} as const
 }
 
-export const AddSettingsAC = (settings: SettingsValueType): AddSettingsAT => {
-    return {type: ADD_SETTINGS, settings}
+export const AddSettingsAC = (settings: SettingsValueType) => {
+    return {type: 'ADD_SETTINGS', settings} as const
 }

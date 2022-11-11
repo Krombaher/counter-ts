@@ -1,15 +1,12 @@
 import s from "../App.module.css";
-import {Settings} from "./Settings";
+import {SettingsContainer} from "./Settings";
 import {Button} from "@mantine/core";
 import React, {useState} from "react";
 import {CounterDisplay} from "./counter/CounterDisplay";
-import {SettingsValueType} from "./redux/CounterReducer";
+import {SettingsValueType, StateValueType} from "./redux/CounterReducer";
 
 export type CounterPropsType = {
-    max: number
-    start: number
-    step: number
-    count: number
+    counter: StateValueType
     nextCount: () => void
     resetCount: () => void
     setSettings: (settings: SettingsValueType) => void
@@ -20,10 +17,10 @@ export const Counter = (props: CounterPropsType) => {
 
     return (
         <>
-            <Settings
-                max={props.max}
-                start={props.start}
-                step={props.step}
+            <SettingsContainer
+                max={props.counter.max}
+                start={props.counter.start}
+                step={props.counter.step}
                 error={error}
                 setError={setError}
                 addSetSettings={props.setSettings}
@@ -31,14 +28,15 @@ export const Counter = (props: CounterPropsType) => {
             <div className={s.counterBlock}>
                 <CounterDisplay
                     error={error}
-                    count={props.count}
-                    max={props.max}/>
+                    count={props.counter.count}
+                    max={props.counter.max}
+                />
                 <div className={s.controls}>
                     <Button
                         radius="lg"
                         uppercase
                         onClick={props.nextCount}
-                        disabled={props.count === props.max}
+                        disabled={props.counter.count === props.counter.max}
                     >
                         INC
                     </Button>
@@ -47,7 +45,7 @@ export const Counter = (props: CounterPropsType) => {
                         radius="lg"
                         uppercase
                         onClick={props.resetCount}
-                        disabled={props.count <= props.start}
+                        disabled={props.counter.count <= props.counter.start}
                     >
                         RESET
                     </Button>

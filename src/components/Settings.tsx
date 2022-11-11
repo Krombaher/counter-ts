@@ -88,3 +88,5 @@ export const Settings = (props: SettingsPropsType) => {
         </div>
     )
 }
+
+export const SettingsContainer = React.memo(Settings)
